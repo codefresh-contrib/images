@@ -1,4 +1,7 @@
-FROM codefresh/kubectl
+ARG KUBECTL_VERSION=latest
+
+FROM codefresh/kubectl:${KUBECTL_VERSION}
+
 ARG HELM_VERSION
 
 WORKDIR /tmp
@@ -7,5 +10,7 @@ RUN curl -L "https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION
     && tar -zxvf helm.tar.gz \
     && mv ./linux-amd64/helm /usr/local/bin/helm \
     && rm -rf /tmp/*
+
+WORKDIR ~
 
 CMD bash

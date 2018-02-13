@@ -1,4 +1,6 @@
-FROM codefresh/cfbase
+ARG KUBECTL_VERSION=latest
+
+FROM codefresh/kubectl:${KUBECTL_VERSION}
 
 ARG HELM_VERSION
 

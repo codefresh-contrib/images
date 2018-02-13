@@ -1,0 +1,15 @@
+version: '1.0'
+steps:
+  build:
+    type: build
+    image_name: codefresh/kubectl
+    working_directory: ./
+    dockerfile: kubectl/Dockerfile
+    build-arguments:
+      - KUBECTL_VERSION=${{KUBECTL_VERSION}}
+    tag: ${{KUBECTL_VERSION}}
+  push:
+    type: push
+    candidate: ${{build}}
+    tag: ${{KUBECTL_VERSION}}
+    registry: dockerhub

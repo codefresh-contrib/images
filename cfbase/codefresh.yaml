@@ -1,0 +1,12 @@
+version: '1.0'
+steps:
+  build:
+    type: build
+    image_name: codefresh/cfbase
+    working_directory: ./
+    dockerfile: cfbase/Dockerfile
+    tag: latest
+  push:
+    type: push
+    candidate: ${{build}}
+    registry: dockerhub

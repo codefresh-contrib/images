@@ -5,4 +5,4 @@ RUN apk add --update ca-certificates \
     && rm /var/cache/apk/* \
     && rm -rf /tmp/*
 
-ENTRYPOINT bash
+CMD ["bash"]

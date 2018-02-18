@@ -11,4 +11,4 @@ RUN curl -L "https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION
 
 WORKDIR ~
 
-CMD bash
+ENTRYPOINT ["helm"]

@@ -2,9 +2,9 @@ version: '1.0'
 steps:
   build:
     type: build
-    image_name: codefresh/kubectl
+    image_name: codefresh/fs-ops
     working_directory: ./
-    dockerfile: kubectl/Dockerfile
+    dockerfile: fs-ops/Dockerfile
     tag: latest 
   push:
     type: push

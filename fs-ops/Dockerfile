@@ -1,4 +1,4 @@
-FROM codefresh/workspace-manager:0.3.0 as workspace
+FROM codefresh/workspace-manager:0.3.1 as workspace
 
 
 FROM codefresh/cfbase

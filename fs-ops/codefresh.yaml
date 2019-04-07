@@ -6,8 +6,14 @@ steps:
     working_directory: ./
     dockerfile: fs-ops/Dockerfile
     tag: latest 
+  version:
+    image: alpine:3.8
+    commands:
+    - cf_export VERSION=$(cat fs-ops/VERSION)
   push:
     type: push
     candidate: ${{build}}
-    tag: latest 
+    tags:
+    - latest
+    - ${{VERSION}}
     registry: dockerhub

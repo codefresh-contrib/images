@@ -5,5 +5,7 @@ FROM codefresh/cfbase
 
 COPY --from=workspace /workspace-manager /usr/local/bin/
 
+LABEL io.codefresh.engine="true"
+
 RUN apk update && \
     apk add rsync

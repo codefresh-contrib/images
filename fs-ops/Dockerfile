@@ -1,11 +1,11 @@
 FROM codefresh/workspace-manager:0.3.1 as workspace
 
-
-FROM codefresh/cfbase
+FROM alpine:3.11
 
 COPY --from=workspace /workspace-manager /usr/local/bin/
 
 LABEL io.codefresh.engine="true"
 
-RUN apk update && \
-    apk add rsync
+RUN apk add --no-cache \
+    bash \
+    rsync

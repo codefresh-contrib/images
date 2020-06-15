@@ -1,4 +1,7 @@
+FROM mcr.microsoft.com/windows/servercore:1909 as core
+
 FROM mcr.microsoft.com/powershell:nanoserver-1909
+COPY --from=core /windows/system32/netapi32.dll /windows/system32/netapi32.dll
 
 USER ContainerAdministrator
 RUN setx PATH "%SystemDrive%\opt\helm\bin;%PATH%" /M

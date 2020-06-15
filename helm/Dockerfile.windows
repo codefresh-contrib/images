@@ -1,0 +1,23 @@
+FROM mcr.microsoft.com/windows/servercore:1909 as core
+
+FROM mcr.microsoft.com/powershell:nanoserver-1909
+COPY --from=core /windows/system32/netapi32.dll /windows/system32/netapi32.dll
+
+USER ContainerAdministrator
+RUN setx PATH "%SystemDrive%\opt\helm\bin;%PATH%" /M
+USER ContainerUser
+
+WORKDIR /opt
+
+ARG HELM_VERSION
+
+RUN pwsh -Command \
+    $ErrorActionPreference = 'Stop' ;\
+    $ProgressPreference = 'SilentlyContinue' ;\
+    Invoke-WebRequest https://get.helm.sh/helm-v${env:HELM_VERSION}-windows-amd64.zip -OutFile helm.zip ;\
+    Expand-Archive helm.zip -DestinationPath helm ;\
+    Move-Item helm/windows-amd64 helm/bin ;\
+    Remove-Item helm.zip ;\
+    if ($env:HELM_VERSION -like '2.*') { helm init --client-only }
+
+ENTRYPOINT ["helm"]

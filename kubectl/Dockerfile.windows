@@ -1,0 +1,21 @@
+FROM mcr.microsoft.com/windows/servercore:1909 as core
+
+FROM mcr.microsoft.com/powershell:nanoserver-1909
+COPY --from=core /windows/system32/netapi32.dll /windows/system32/netapi32.dll
+
+USER ContainerAdministrator
+RUN setx PATH "%SystemDrive%\opt\kubernetes\client\bin;%PATH%" /M
+USER ContainerUser
+
+WORKDIR /opt
+
+ARG KUBECTL_VERSION
+
+RUN pwsh -Command \
+    $ErrorActionPreference = 'Stop' ;\
+    $ProgressPreference = 'SilentlyContinue' ;\
+    Invoke-WebRequest https://dl.k8s.io/v${env:KUBECTL_VERSION}/kubernetes-client-windows-amd64.tar.gz -OutFile kubectl.tgz ;\
+    tar xvzf kubectl.tgz ;\
+    Remove-Item kubectl.tgz
+
+ENTRYPOINT ["kubectl"]

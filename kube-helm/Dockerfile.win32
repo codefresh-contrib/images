@@ -1,0 +1,20 @@
+FROM codefresh/kubectl:1909
+
+USER ContainerAdministrator
+RUN setx PATH "%SystemDrive%\opt\helm\bin;%PATH%" /M
+USER ContainerUser
+
+WORKDIR /opt
+
+ARG HELM_VERSION
+
+RUN pwsh -Command \
+    $ErrorActionPreference = 'Stop' ;\
+    $ProgressPreference = 'SilentlyContinue' ;\
+    Invoke-WebRequest https://get.helm.sh/helm-v${env:HELM_VERSION}-windows-amd64.zip -OutFile helm.zip ;\
+    Expand-Archive helm.zip -DestinationPath helm ;\
+    Move-Item helm/windows-amd64 helm/bin ;\
+    Remove-Item helm.zip ;\
+    helm init --client-only
+
+ENTRYPOINT ["helm"]

@@ -15,6 +15,6 @@ RUN pwsh -Command \
     Expand-Archive helm.zip -DestinationPath helm ;\
     Move-Item helm/windows-amd64 helm/bin ;\
     Remove-Item helm.zip ;\
-    helm init --client-only
+    if ($env:HELM_VERSION -like '2.*') { helm init --client-only }
 
 ENTRYPOINT ["helm"]

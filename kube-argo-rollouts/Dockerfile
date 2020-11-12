@@ -2,8 +2,6 @@ ARG KUBECTL_VERSION=latest
 
 FROM codefresh/kubectl:${KUBECTL_VERSION}
 
-ARG HELM_VERSION
-
 WORKDIR /tmp
 
 RUN curl -LO "https://github.com/argoproj/argo-rollouts/releases/latest/download/kubectl-argo-rollouts-linux-amd64" \

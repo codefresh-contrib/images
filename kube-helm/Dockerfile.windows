@@ -1,4 +1,4 @@
-FROM codefresh/kubectl:1909
+FROM codefresh/kubectl:windows-20H2
 
 USER ContainerAdministrator
 RUN setx PATH "%SystemDrive%\opt\helm\bin;%PATH%" /M

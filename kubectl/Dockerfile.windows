@@ -1,6 +1,6 @@
-FROM mcr.microsoft.com/windows/servercore:1909 as core
+FROM mcr.microsoft.com/windows/servercore:20H2 as core
 
-FROM mcr.microsoft.com/powershell:nanoserver-1909
+FROM mcr.microsoft.com/powershell:nanoserver-2004
 COPY --from=core /windows/system32/netapi32.dll /windows/system32/netapi32.dll
 
 USER ContainerAdministrator
